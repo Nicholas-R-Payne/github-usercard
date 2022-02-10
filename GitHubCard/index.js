@@ -13,7 +13,6 @@ axios.get('https://api.github.com/users/Nicholas-R-Payne')
 .catch(err => {
   console.log(err);
 })
-.finally(() => console.log('DONE'));
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -39,7 +38,21 @@ axios.get('https://api.github.com/users/Nicholas-R-Payne')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+function getGitCard(user) {
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(res => {
+    document.querySelector('.cards').appendChild(githubCard(res.data));
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+for (let i = 0; i < followersArray.length; i++) {
+  getGitCard(followersArray[i]);
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
